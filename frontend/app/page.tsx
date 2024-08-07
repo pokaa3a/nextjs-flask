@@ -4,23 +4,55 @@ import { useEffect } from 'react';
 
 export default function Home() {
 
-  const getRequest = async () => {
+  const getItem = async () => {
+    const id = 0;
     try {
-      const response = await axios.get('http://127.0.0.1:5000/');
+      const response = await axios.get(`http://127.0.0.1:5000/items/${id}`);
       console.log(response.data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error reading data:', error);
     }
   };
 
-  const postRequest = async () => {
+  const delItem = async () => {
+    const id = 0;
     try {
-      const responese = await axios.post('http://127.0.0.1:5000/', {
-        message: 'Hello from Next.js'
-      });
-      console.log(responese.data);
+      const response = await axios.delete(`http://127.0.0.1:5000/items/${id}`);
+      console.log(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error deleting item", error);
+    }
+  };
+
+  const putItem = async () => {
+    const id = 0;
+    try {
+      const response = await axios.put(
+        `http://127.0.0.1:5000/items/${id}`,
+        { "metadata": "New metadata", "payload": "New payload" });
+      console.log(response.data);
+    } catch (e) {
+      console.error("Error putting item", e);
+    }
+  };
+
+  const getItemList = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:5000/items");
+      console.log(response.data);
+    } catch (e) {
+      console.error("Error reading item list:", e);
+    }
+  };
+
+  const postItemList = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:5000/items",
+        { "metadata": "New metadata", "payload": "New payload" });
+      console.log(response.data);
+    } catch (e) {
+      console.error("Error posting item list: ", e)
     }
   };
 
@@ -37,10 +69,34 @@ export default function Home() {
             </p>
           </div>
           <button
-            className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-            onClick={getRequest}
+            className="flex h-10 items-center rounded-lg bg-blue-600 px-4 mt-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            onClick={getItem}
           >
-            GET
+            GET Item
+          </button>
+          <button
+            className="flex h-10 items-center rounded-lg bg-blue-600 px-4 mt-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            onClick={delItem}
+          >
+            DEL Item
+          </button>
+          <button
+            className="flex h-10 items-center rounded-lg bg-blue-600 px-4 mt-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            onClick={putItem}
+          >
+            PUT Item
+          </button>
+          <button
+            className="flex h-10 items-center rounded-lg bg-blue-600 px-4 mt-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            onClick={getItemList}
+          >
+            GET ItemList
+          </button>
+          <button
+            className="flex h-10 items-center rounded-lg bg-blue-600 px-4 mt-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            onClick={postItemList}
+          >
+            POST ItemList
           </button>
         </div>
       </div>    
